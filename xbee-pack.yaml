@@ -1,0 +1,35 @@
+schema-version: 1.0
+
+type: builder
+
+description: |
+  The Nettle package contains a low-level cryptographic library that is designed to fit easily in many contexts.
+  Installed Programs: nettle-hash, nettle-lfib-stream, nettle-pbkdf2, pkcs1-conv and sexp-conv
+  Installed Libraries: libhogweed.so and libnettle.so
+  Installed Directory: /usr/include/nettle and /usr/share/doc/nettle-3.7.3
+  Short Descriptions
+    nettle-hash: calculates a hash value using a specified algorithm
+    nettle-lfib-stream: outputs a sequence of pseudorandom (non-cryptographic) bytes, using Knuth's lagged fibonacci generator. The stream is useful for testing, but should not be used to generate cryptographic keys or anything else that needs real randomness
+    nettle-pbkdf2: is a password-based key derivation function that takes a password or a passphrase as input and returns a strengthened password, which is protected against pre-computation attacks by using salting and other expensive computations.
+    pkcs1-conv: converts private and public RSA keys from PKCS #1 format to sexp format
+    sexp-conv: converts an s-expression to a different encoding
+
+in:
+  version: 3.7.3
+
+dependencies:
+  - m4
+
+provision:
+  - url:
+      from: https://ftp.gnu.org/gnu/nettle/nettle-{% version %}.tar.gz
+      todir: "{% xbeeSrc %}"
+
+build:
+  - shell:
+      cmds:
+        - ./configure --prefix=/usr --disable-static
+        - make
+        - make install DESTDIR="{% xbeeOut %}"
+        - chmod -v 755 {% xbeeOut %}/usr/lib64/libnettle.so.8.4
+      directory: "{% xbeeSrc %}/nettle-{% version %}"
