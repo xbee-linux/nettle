@@ -19,6 +19,7 @@ in:
 
 dependencies:
   - m4
+  - gmp
 
 provision:
   - url:
@@ -31,5 +32,5 @@ build:
         - ./configure --prefix=/usr --disable-static --libdir=/usr/lib
         - make
         - make install DESTDIR="{% xbeeOut %}"
-        - chmod -v 755 {% xbeeOut %}/usr/lib/libnettle.so.8.4
+        - chmod -v 755 {% xbeeOut %}/usr/lib/{libnettle.so.8.4,libhogweed.so.6.4}
       directory: "{% xbeeSrc %}/nettle-{% version %}"
