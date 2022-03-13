@@ -28,8 +28,8 @@ provision:
 build:
   - shell:
       cmds:
-        - ./configure --prefix=/usr --disable-static
+        - ./configure --prefix=/usr --disable-static --libdir=/usr/lib
         - make
         - make install DESTDIR="{% xbeeOut %}"
-        - chmod -v 755 {% xbeeOut %}/usr/lib64/libnettle.so.8.4
+        - chmod -v 755 {% xbeeOut %}/usr/lib/libnettle.so.8.4
       directory: "{% xbeeSrc %}/nettle-{% version %}"
