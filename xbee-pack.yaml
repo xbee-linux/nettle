@@ -14,23 +14,21 @@ description: |
     pkcs1-conv: converts private and public RSA keys from PKCS #1 format to sexp format
     sexp-conv: converts an s-expression to a different encoding
 
-in:
+var:
   version: 3.7.3
 
-dependencies:
+builders:
   - m4
   - gmp
 
 provision:
-  - url:
-      from: https://ftp.gnu.org/gnu/nettle/nettle-{% version %}.tar.gz
-      todir: "{% xbeeSrc %}"
+  url: https://ftp.gnu.org/gnu/nettle/nettle-{{ .version }}.tar.gz
 
 build:
   - shell:
       cmds:
         - ./configure --prefix=/usr --disable-static --libdir=/usr/lib
         - make
-        - make install DESTDIR="{% xbeeOut %}"
-        - chmod -v 755 {% xbeeOut %}/usr/lib/{libnettle.so.8.4,libhogweed.so.6.4}
-      directory: "{% xbeeSrc %}/nettle-{% version %}"
+        - make install DESTDIR="{{ .xbee.out }}"
+        - chmod -v 755 {{ .xbee.out }}/usr/lib/{libnettle.so.8.4,libhogweed.so.6.4}
+      directory: "{{ .xbee.src }}/nettle-{{ .version }}"
