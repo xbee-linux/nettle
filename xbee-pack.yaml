@@ -15,14 +15,15 @@ description: |
     sexp-conv: converts an s-expression to a different encoding
 
 var:
-  version: 3.7.3
+  xbee:
+    version: 3.7.3
 
 builders:
   - m4
   - gmp
 
 provision:
-  url: https://ftp.gnu.org/gnu/nettle/nettle-{{ .version }}.tar.gz
+  url: https://ftp.gnu.org/gnu/nettle/nettle-{{ .xbee.version }}.tar.gz
 
 build:
   - shell:
@@ -31,4 +32,4 @@ build:
         - make
         - make install DESTDIR="{{ .xbee.out }}"
         - chmod -v 755 {{ .xbee.out }}/usr/lib/{libnettle.so.8.4,libhogweed.so.6.4}
-      directory: "{{ .xbee.src }}/nettle-{{ .version }}"
+      directory: "{{ .xbee.src }}/nettle-{{ .xbee.version }}"
