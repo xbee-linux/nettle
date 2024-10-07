@@ -1,7 +1,5 @@
 schema-version: 1.0
 
-type: builder
-
 description: |
   The Nettle package contains a low-level cryptographic library that is designed to fit easily in many contexts.
   Installed Programs: nettle-hash, nettle-lfib-stream, nettle-pbkdf2, pkcs1-conv and sexp-conv
@@ -18,7 +16,7 @@ var:
   xbee:
     version: 3.7.3
 
-builders:
+builder:
   - m4
   - gmp
 
